@@ -1,6 +1,6 @@
 const loadProductos = document.getElementById("loadProductos");
 const information = document.getElementsByClassName("card-text");
-const prices = document.getElementsByClassName("text-body-secondary price");
+const prices = document.getElementsByClassName("price");
 const urlAPI = "https://api.escuelajs.co/api/v1/products";
 
 function getData() {
@@ -8,7 +8,10 @@ function getData() {
     fetch(urlAPI, options)
         .then((response) => {
             response.json().then((res) => {
-                insertTittleDescription(information[0], res[0]);
+                for (let i = 0; i < information.length; i++ ){
+                    insertTittleDescription(information[i], res[i], prices[i]);
+                }
+                
                 console.log("Funciona");
             });
         })
@@ -18,8 +21,9 @@ function getData() {
 }
 
 
-function insertTittleDescription(classCardText, res){
+function insertTittleDescription(classCardText, res, classPrice){
     classCardText.innerText = `${res.title} \n\n ${res.description}`
+    classPrice.innerText = `$${res.price}`
     
 }
 
